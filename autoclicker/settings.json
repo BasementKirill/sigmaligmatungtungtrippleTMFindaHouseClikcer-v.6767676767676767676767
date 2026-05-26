@@ -1,0 +1,33 @@
+{
+    "clicker": {
+        "clicks_per_second": 14,
+        "button": "Left",
+        "randomness": 0,
+        "clicks_per_unit": 15.0,
+        "unit": "s",
+        "mode": "Toggle"
+    },
+    "hotkey": {
+        "key": "x",
+        "modifiers": [
+            "ctrl"
+        ],
+        "current_hotkey": "ctrl_l+\u0018"
+    },
+    "modes": {
+        "normal": true,
+        "selected_area": false
+    },
+    "gui": {
+        "theme": "dark",
+        "start_minimized": false,
+        "minimize_to_tray": true
+    },
+    "panels": {
+        "duty_cycle": true,
+        "double_click": false,
+        "click_limit": false,
+        "time_limit": false,
+        "corner_stop": false
+    }
+}
