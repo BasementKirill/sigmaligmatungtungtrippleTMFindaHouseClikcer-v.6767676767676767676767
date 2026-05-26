@@ -27,6 +27,7 @@ cmds = [
     "--noconsole",
     f"--name={NAME}",
     f"--icon={ico_path}" if ico_path else f"--icon={str(png_path)}",
+    f"--version-file={script_dir / 'version_info.txt'}",
     "--add-data", f"{script_dir / 'assets'};assets",
     "--distpath", str(script_dir / DIST_DIR),
     "--clean",

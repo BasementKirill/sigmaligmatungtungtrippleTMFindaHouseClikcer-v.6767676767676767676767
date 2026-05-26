@@ -145,16 +145,33 @@ class AutoClickerGUI(ctk.CTk):
             ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(APP_NAME)
         except Exception:
             pass
-        icon_path = resource_path("assets/Baddie.png")
-        if os.path.exists(icon_path):
-            try:
-                img = Image.open(icon_path)
-                photo = ImageTk.PhotoImage(img)
-                self.iconphoto(True, photo)
-                self._icon_photo = photo
-            except Exception:
-                pass
+        self._set_window_icon()
+        self.after(50, self._set_window_icon)
         self.protocol("WM_DELETE_WINDOW", self.on_close)
+
+    def _set_window_icon(self):
+        png_path = resource_path("assets/Baddie.png")
+        if not os.path.exists(png_path):
+            return
+        try:
+            img = Image.open(png_path)
+            photo = ImageTk.PhotoImage(img)
+            self.iconphoto(True, photo)
+            self._icon_photo = photo
+            ico_path = png_path.replace(".png", ".ico")
+            if not os.path.exists(ico_path):
+                img.save(ico_path, format="ICO", sizes=[(32, 32), (256, 256)])
+            self.iconbitmap(default=ico_path)
+            hwnd = ctypes.windll.user32.GetParent(self.winfo_id())
+            if hwnd:
+                hicon = ctypes.windll.user32.LoadImageW(
+                    0, ico_path, 1, 0, 0, 0x00000010
+                )
+                if hicon:
+                    ctypes.windll.user32.SendMessageW(hwnd, 0x0080, 0, hicon)
+                    ctypes.windll.user32.SendMessageW(hwnd, 0x0080, 1, hicon)
+        except Exception:
+            pass
 
         self.hotkey_listener = None
         self.current_hotkey = "f6"
