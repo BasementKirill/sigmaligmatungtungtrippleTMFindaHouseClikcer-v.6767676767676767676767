@@ -11,7 +11,7 @@ from settings import settings
 from pynput import keyboard
 
 # Configuration
-APP_NAME = "tungtungtungsahursimgaligmaNGaClicker OP v.67676767"
+APP_NAME = "tungtungtungsahursimgaligmaNGaClicker OP v.0.0.2"
 ACCENT_COLOR = "#2CC985"
 BG_COLOR = "#0F0F0F"
 FRAME_BG = "#161616"

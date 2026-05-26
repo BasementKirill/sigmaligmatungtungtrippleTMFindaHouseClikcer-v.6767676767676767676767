@@ -4,7 +4,7 @@ from pathlib import Path
 
 from PIL import Image
 
-NAME = "tungtungtungsahursimgaligmaNGaClicker OP v.67676767"
+NAME = "tungtungtungsahursimgaligmaNGaClicker OP v.0.0.2"
 PNG_ICON = "assets/Baddie.png"
 ENTRY = "main.py"
 DIST_DIR = "dist"
@@ -19,17 +19,19 @@ if png_path.exists():
     img.save(ico_path, format="ICO", sizes=[(256, 256)])
     print(f"[BUILD] Converted {PNG_ICON} -> icon.ico")
 
+entry_path = str(script_dir / ENTRY)
+
 cmds = [
     sys.executable, "-m", "PyInstaller",
     "--onefile",
     "--noconsole",
     f"--name={NAME}",
-    f"--icon={ico_path}" if ico_path else f"--icon={PNG_ICON}",
-    "--add-data", f"assets{';'}assets",
-    "--distpath", DIST_DIR,
+    f"--icon={ico_path}" if ico_path else f"--icon={str(png_path)}",
+    "--add-data", f"{script_dir / 'assets'};assets",
+    "--distpath", str(script_dir / DIST_DIR),
     "--clean",
     "--noconfirm",
-    ENTRY
+    entry_path
 ]
 
 print(f"[BUILD] Compiling {ENTRY} -> {NAME}.exe ...")
@@ -40,7 +42,7 @@ if ico_path and ico_path.exists():
     print("[BUILD] Cleaned up temporary icon.ico")
 
 if result.returncode == 0:
-    print(f"[BUILD] SUCCESS! Executable created at: {Path(DIST_DIR) / f'{NAME}.exe'}")
+    print(f"[BUILD] SUCCESS! Executable created at: {script_dir / DIST_DIR / f'{NAME}.exe'}")
 else:
     print("[BUILD] FAILED!")
     print(result.stdout)
